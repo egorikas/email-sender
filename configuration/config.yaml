@@ -1,0 +1,38 @@
+server:
+  port: ":5678"
+  # 20M works with all the providers
+  bodylimit: "20M"
+logger:
+  outputs:
+    - "stdout"
+  erroroutputs:
+    - "stderr"
+  debug: true
+providers:
+  # 0 - MailGun
+  # 1 - Sendgrid
+  # 2 - Sparkpost
+  current: 2
+  mailgun:
+    domain: ""
+    apikey: ""
+    timeout: 10s
+    rps: 1000
+  sendgrid:
+    apikey: ""
+    endpoint: "/v3/mail/send"
+    host: "https://api.sendgrid.com"
+    timeout: 10s
+    rps: 10000
+  sparkpost:
+    apikey: ""
+    timeout: 10s
+    rps: 10
+jaeger:
+  servicename: "email-sender"
+  agentendpoint: "localhost:6831"
+prometheus:
+  namespace: "email_sender"
+  endpoint: "/metrics"
+  port: ":8888"
+

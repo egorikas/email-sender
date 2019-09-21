@@ -1,0 +1,74 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Email sender
+  description: Easy-to-use API that helps your send email without any worries about providers
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Egor Grishechko
+    email: egorgrishechko@gmail.com
+    url: https://egorikas.com/
+servers:
+  - url: http://localhost:5678/api/v1
+paths:
+  /emails:
+    post:
+      description: Send an email with provided info
+      operationId: sendEmail
+      requestBody:
+        description: Email info
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewEmail'
+      responses:
+        '200':
+          description: Email has been sent
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - Emails
+
+components:
+  schemas:
+    NewEmail:
+      type: object
+      required:
+        - to
+        - from
+        - body
+      properties:
+        to:
+          type: array
+          items:
+            type: string
+            format: email
+          minItems: 1
+          maxItems: 1000
+        from:
+          type: string
+          format: email
+        subject:
+          type: string
+          maxLength: 78
+          example: This is the example subject
+        body:
+          type: string
+          example: This is the example email
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
