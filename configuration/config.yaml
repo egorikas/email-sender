@@ -12,7 +12,8 @@ providers:
   # 0 - MailGun
   # 1 - Sendgrid
   # 2 - Sparkpost
-  current: 2
+  # 3 - Dummy
+  current: 3
   mailgun:
     domain: ""
     apikey: ""

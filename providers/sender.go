@@ -11,6 +11,7 @@ const (
 	Mailgun Type = iota
 	SendGrid
 	Sparkpost
+	Dummy
 )
 
 type Config struct {
@@ -39,6 +40,8 @@ func NewSender(log *zap.Logger, config Config) Sender {
 		return newSendGrid(log, config.SendGrid)
 	case Sparkpost:
 		return newSparkPost(log, config.Sparkpost)
+	case Dummy:
+		return &dummy{}
 	default:
 		log.Panic("unknown provider")
 	}
