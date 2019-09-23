@@ -41,7 +41,7 @@ func NewSender(log *zap.Logger, config Config) Sender {
 	case Sparkpost:
 		return newSparkPost(log, config.Sparkpost)
 	case Dummy:
-		return &dummy{}
+		return &dummy{log: log}
 	default:
 		log.Panic("unknown provider")
 	}

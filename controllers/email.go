@@ -81,5 +81,5 @@ func (c *Emails) SendEmail(reqCtx echo.Context) error {
 	}
 
 	stats.Record(ctx, statSuccessedRequestCount.M(1))
-	return reqCtx.JSON(http.StatusOK, nil)
+	return reqCtx.JSON(http.StatusOK, struct{}{})
 }

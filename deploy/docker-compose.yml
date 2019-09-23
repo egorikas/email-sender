@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  app-instance1:
+    build: ../
+    tty: true
+  app-instance2:
+    build: ../
+    tty: true
+  app-instance3:
+    build: ../
+    tty: true
+  loadbalancer:
+    build: ./load-balancer
+    tty: true
+    links:
+      - app-instance1
+      - app-instance2
+      - app-instance3
+    ports:
+      - '5678:5678'
