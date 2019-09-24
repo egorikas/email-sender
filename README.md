@@ -40,7 +40,7 @@ I just created docker-compose file with `nginx` like a `load-balancer` and 3 ins
 `make deploy` or
 `cd deploy && docker-compose up`
 
-`cd deploy` - Lazy way :)
+`cd deploy` - Lazy way of running docker-compose :)
 
 
 #### Running 1 node (Docker):
