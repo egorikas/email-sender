@@ -16,7 +16,7 @@ type Emails struct {
 	sender providers.Sender
 }
 
-func NewEmail(log *zap.Logger, sender providers.Sender) *Emails {
+func NewEmails(log *zap.Logger, sender providers.Sender) *Emails {
 	return &Emails{log: log, sender: sender}
 }
 

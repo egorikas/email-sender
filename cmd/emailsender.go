@@ -23,7 +23,7 @@ func main() {
 	e := server.New(config.Server)
 	v1 := e.Group("/api/v1")
 
-	emailController := controllers.NewEmail(log, providers.NewSender(log, config.Providers))
+	emailController := controllers.NewEmails(log, providers.NewSender(log, config.Providers))
 	emailController.Register(v1)
 
 	err := e.Start(config.Server.Port)

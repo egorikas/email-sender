@@ -16,7 +16,7 @@ import (
 )
 
 func TestNewEmail(t *testing.T) {
-	controller := NewEmail(zap.NewExample(), providers.NewSenderMock(t))
+	controller := NewEmails(zap.NewExample(), providers.NewSenderMock(t))
 
 	require.NotNil(t, controller)
 }
@@ -24,7 +24,7 @@ func TestNewEmail(t *testing.T) {
 func TestEmails_SendEmail(t *testing.T) {
 	t.Run("invalid input returns error. invalid json", func(t *testing.T) {
 		sender := providers.NewSenderMock(t)
-		controller := NewEmail(zap.NewExample(), sender)
+		controller := NewEmails(zap.NewExample(), sender)
 
 		e := echo.New()
 		e.Validator = server.NewValidator()
@@ -45,7 +45,7 @@ func TestEmails_SendEmail(t *testing.T) {
 
 	t.Run("invalid input returns error. validation failed", func(t *testing.T) {
 		sender := providers.NewSenderMock(t)
-		controller := NewEmail(zap.NewExample(), sender)
+		controller := NewEmails(zap.NewExample(), sender)
 
 		json := `
 			{
@@ -87,7 +87,7 @@ func TestEmails_SendEmail(t *testing.T) {
 
 			return nil
 		})
-		controller := NewEmail(zap.NewExample(), sender)
+		controller := NewEmails(zap.NewExample(), sender)
 
 		json := `
 			{
