@@ -13,11 +13,16 @@ I added metrics for incoming/successful/failed request and tend to think that th
 
 # Unit-testing
 
-I had limited amount of time, so decided no to write unit/integrations tests. But it's not a problem. Unit-tests
-for controller can be written without problems because of using `Sender` interface. For getting 100% incapsulation 
-logger can be passed as an interface (it'd be needed to create interface for logger.) For malgun-implementation
+I had limited amount of time, so decided to write only tests for controllers,Email just to show my approach. 
+For getting 100% encapsulation logger can be passed as an interface 
+(it'd be needed to create interface for logger, but I'm not sure, that it should be done). For malgun-implementation
 tests can be written without any troubles because of using interfaces too. For others implementations some interfaces 
 should be created first and then there won't be any problems with writing tests.
+
+I prefer to use code-generated mocks, because there are no {}interface as an argument for them and we have only one
+instance of the mock and it's being used in all project. That helps us to maintain code simplicity
+
+For running tests call `make test`
 
 
 # Focus-area
@@ -26,20 +31,30 @@ should be created first and then there won't be any problems with writing tests.
 
 I created one more provider for the sender and just put time.Wait with random interval inside of it.
 Because service works well with even 1 single instance, I decided to scale it horizontally. I made it in a very simple way.
-I just created docker-compose file with nginx like a load-balancer and 3 instances of the service
+I just created docker-compose file with nginx like a load-balancer and 3 instances of the service. If I misunderstood the task, I can do something different.
 
 
 # Running service
 
 #### Running 3 nodes + load-balancer:
 
+`make deploy` or
 `cd deploy && docker-compose up`
 
 `cd deploy` - Lazy way :)
 
 
 #### Running 1 node (Docker):
+`make docker` or
 ```
 docker build -t email_sender .
 docker run -p 5678:5678 email_sender
 ```
+
+#### Running with out containers:
+
+`go run ./cmd/ -config "./configuration"`
+
+or
+
+`make go-run`
